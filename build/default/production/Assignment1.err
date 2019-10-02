@@ -1,0 +1,5 @@
+Warning[205] C:\USERS\JACOB\DESKTOP\ASSIGNMENT1.X\ASSIGNMENT1.ASM 10 : Found directive in column 1. (__CONFIG)
+Warning[205] C:\USERS\JACOB\DESKTOP\ASSIGNMENT1.X\ASSIGNMENT1.ASM 13 : Found directive in column 1. (__CONFIG)
+Message[302] C:\USERS\JACOB\DESKTOP\ASSIGNMENT1.X\ASSIGNMENT1.ASM 39 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\JACOB\DESKTOP\ASSIGNMENT1.X\ASSIGNMENT1.ASM 40 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\JACOB\DESKTOP\ASSIGNMENT1.X\ASSIGNMENT1.ASM 43 : Register in operand not in bank 0.  Ensure that bank bits are correct.
