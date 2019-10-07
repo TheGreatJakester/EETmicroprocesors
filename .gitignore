@@ -2,3 +2,5 @@
 build/default/production/
 
 dist/default/production/
+
+nbproject/private/

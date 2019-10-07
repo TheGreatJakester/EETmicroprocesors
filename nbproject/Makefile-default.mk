@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=Assignment1.asm
+SOURCEFILES_QUOTED_IF_SPACED=assignment2_.asm
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/Assignment1.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/Assignment1.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/assignment2_.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/assignment2_.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/Assignment1.o
+OBJECTFILES=${OBJECTDIR}/assignment2_.o
 
 # Source Files
-SOURCEFILES=Assignment1.asm
+SOURCEFILES=assignment2_.asm
 
 
 
@@ -95,22 +95,22 @@ MP_LINKER_DEBUG_OPTION=-r=ROM@0x1F00:0x1FFE -r=RAM@SHARE:0x70:0x70 -r=RAM@SHARE:
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: assemble
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/Assignment1.o: Assignment1.asm  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/assignment2_.o: assignment2_.asm  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/Assignment1.o.d 
-	@${RM} ${OBJECTDIR}/Assignment1.o 
-	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/Assignment1.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -d__DEBUG -d__MPLAB_DEBUGGER_PK3=1 -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/Assignment1.lst\" -e\"${OBJECTDIR}/Assignment1.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/Assignment1.o\" \"Assignment1.asm\" 
-	@${DEP_GEN} -d "${OBJECTDIR}/Assignment1.o"
-	@${FIXDEPS} "${OBJECTDIR}/Assignment1.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
+	@${RM} ${OBJECTDIR}/assignment2_.o.d 
+	@${RM} ${OBJECTDIR}/assignment2_.o 
+	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/assignment2_.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -d__DEBUG -d__MPLAB_DEBUGGER_PK3=1 -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/assignment2_.lst\" -e\"${OBJECTDIR}/assignment2_.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/assignment2_.o\" \"assignment2_.asm\" 
+	@${DEP_GEN} -d "${OBJECTDIR}/assignment2_.o"
+	@${FIXDEPS} "${OBJECTDIR}/assignment2_.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
 	
 else
-${OBJECTDIR}/Assignment1.o: Assignment1.asm  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/assignment2_.o: assignment2_.asm  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/Assignment1.o.d 
-	@${RM} ${OBJECTDIR}/Assignment1.o 
-	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/Assignment1.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/Assignment1.lst\" -e\"${OBJECTDIR}/Assignment1.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/Assignment1.o\" \"Assignment1.asm\" 
-	@${DEP_GEN} -d "${OBJECTDIR}/Assignment1.o"
-	@${FIXDEPS} "${OBJECTDIR}/Assignment1.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
+	@${RM} ${OBJECTDIR}/assignment2_.o.d 
+	@${RM} ${OBJECTDIR}/assignment2_.o 
+	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/assignment2_.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/assignment2_.lst\" -e\"${OBJECTDIR}/assignment2_.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/assignment2_.o\" \"assignment2_.asm\" 
+	@${DEP_GEN} -d "${OBJECTDIR}/assignment2_.o"
+	@${FIXDEPS} "${OBJECTDIR}/assignment2_.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
 	
 endif
 
