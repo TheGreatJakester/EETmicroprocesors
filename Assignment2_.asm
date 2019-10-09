@@ -24,11 +24,21 @@ main:
     
 delay:
     nop
+loop1:
+    movlw d'194'
+    movwf X
+loop2:
+    movlw d'255'
+    movwf Y
+wait:
     nop
     nop
     nop
     nop
-    nop
+    decfsz Y, F
+    goto wait
+    decfsz X, F
+    goto loop2
     return
     
 loop:
@@ -47,6 +57,7 @@ init:
     bsf STATUS, RP0
     bcf STATUS, RP1
     bcf TRISB, 0
+    bcf TRISC, 0
     bcf STATUS, RP0
     bcf STATUS, RP1
     return
