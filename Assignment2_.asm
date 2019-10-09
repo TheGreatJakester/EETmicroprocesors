@@ -13,25 +13,31 @@ __CONFIG _CONFIG1, _FOSC_INTRC_NOCLKOUT & _WDTE_OFF & _PWRTE_OFF & _MCLRE_ON & _
 __CONFIG _CONFIG2, _BOR4V_BOR40V & _WRT_OFF
     
     org 0x00	;declare program placement
+
+X equ H'0020'	    ; declare variable X at location H'0020'
+Y equ H'0021'	    ; declare variable Y at location H'0021'
     
 main:
     
     call init
+    call loop
+    
+delay:
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    return
     
 loop:
     bsf PORTB, 0    ;set RB0 to 1
-    nop
-    nop
-    nop
-    nop
-    nop
+    call delay
     bcf PORTB, 0    ;set RB0 to 0
-    nop
-    nop
-    nop
-    nop
-    nop
+    call delay
     goto loop
+    return
     
 init:
     bsf STATUS, RP0
