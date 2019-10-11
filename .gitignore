@@ -8,3 +8,5 @@ nbproject/private/
 build/default/debug/
 
 dist/default/debug/
+
+*.mk
