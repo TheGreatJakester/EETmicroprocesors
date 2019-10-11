@@ -25,32 +25,35 @@ main:
 delay:
     nop
 loop1:
-    movlw d'194'
+    movlw d'210' ; set X to 194
     movwf X
 loop2:
-    movlw d'255'
+    movlw d'255' ; set Y to 255
     movwf Y
 wait:
+    nop ;wait a while
     nop
     nop
     nop
     nop
-    decfsz Y, F
+    decfsz Y, F; if Y is not yet 0, decrease it and wait again.
     goto wait
-    decfsz X, F
+    decfsz X, F; if Y is zero, check to see if X is 0. If it is not, go back to reset Y and wait some more. 
     goto loop2
-    return
+    return ; finish the delay
     
 loop:
-    bsf PORTB, 0    ;set RB0 to 1
-    call delay
-    bcf PORTB, 0    ;set RB0 to 0
-    call delay
-    goto loop
-    return
+    bsf PORTB, 0 ; turn on blue light
+    bcf PORTC, 0 ; turn off red light
+    call delay ; go wait
+    bcf PORTB, 0 ; turn off blue light
+    bsf PORTC, 0 ; turn on red light
+    call delay ; go wait
+    goto loop ; do it again
+    return ; should never hit
     
 init:
-    bsf STATUS, RP0
+    bsf STATUS, RP0 ; I would desperatly like to know what this does. 
     bsf STATUS, RP1
     clrf ANSEL
     clrf ANSELH
