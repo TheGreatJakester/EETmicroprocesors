@@ -4,3 +4,9 @@ build/default/production/
 dist/default/production/
 
 nbproject/private/
+
+build/default/debug/
+
+dist/default/debug/
+
+*.mk
