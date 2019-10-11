@@ -39,8 +39,23 @@ wait:
     goto loop2
     return ; finish the delay
     
+tone:
+    nop
+toneLoop:
+    movlw d'255' ; set Y to 255
+    movwf wait_helper
+toning:
+    bsf PORTB, 0
+    nop
+    bcf PORTB, 0;
+    decfsz wait_helper, F; if Y is not yet 0, decrease it and wait again.
+    goto toning
+    decfsz wait_input, F; if Y is zero, check to see if X is 0. If it is not, go back to reset Y and wait some more. 
+    goto toneLoop
+    return ; finish the delay
+    
+    
 loop:
-    bcf PORTB, 0 ; turn off blue light
     BTFSS PORTC, 0 ; start to look for hold if set, otherwise, rest
     goto loop
     
@@ -56,7 +71,7 @@ loop:
     
     movlw d'250' ; set X to 194
     movwf wait_input
-    call delay ; go wait
+    call tone
         
     goto loop ; do it again
     
