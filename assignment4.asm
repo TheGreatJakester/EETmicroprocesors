@@ -12,14 +12,14 @@ __CONFIG _CONFIG2, _BOR4V_BOR40V & _WRT_OFF
 
 X equ H'0020'	    ; declare variable X at location H'0020'
 Y equ H'0021'	    ; declare variable Y at location H'0021'
-sub_flags equ H'0022'
+sub_flags equ H'0022' ; set state flags so change detaction is posible
     
 main:
     
     call init
     call loop
     
-delay:
+delay: ; copied delay subroutine from previous labs
     nop
 loop1:
     movlw d'210' ; set X to 194
@@ -41,40 +41,40 @@ wait:
     
     
 clear:
-    clrf sub_flags
-    clrf PORTB
+    clrf sub_flags ;clear flags
+    clrf PORTB ;turn off all lights
     return
     
 
 loop:
-    call delay
-    BTFSC PORTC, 4
+    call delay ; hang in previous state, then read dip
+    BTFSC PORTC, 4 ; if switch one is flipped, goto sub_1
     goto sub_1
-    BTFSC PORTC, 5
+    BTFSC PORTC, 5 ; if switch two is flipped, goto sub_2
     goto sub_2
-    BTFSC PORTC, 6
+    BTFSC PORTC, 6 ; if switch three is filled, goto sub_3
     goto sub_3
-    goto clear_and_wait
+    goto clear_and_wait ; if no switch is flipped, clear
     
     sub_1:
-	btfss sub_flags, 0
+	btfss sub_flags, 0 ; if sub one flag is set, assume no change, otherwise reset
 	call clear
 	bsf sub_flags, 0
-	call flash_in_unison
+	call flash_in_unison ; call the first subroutine then read dip
 	goto loop
 	
     sub_2:
-	btfss sub_flags, 1
+	btfss sub_flags, 1 ; if sub two flag is set, assume no change, otherwise reset
 	call clear
 	bsf sub_flags, 1
-	call binary_count
+	call reverse_flow ; call second subroutine then read dip
 	goto loop
     
     sub_3:
-	btfss sub_flags, 2
+	btfss sub_flags, 2 ; if sub three flag is set, assume no change, otherwise reset
 	call clear
 	bsf sub_flags, 2
-	call flow
+	call flow ; call thrid subroutine then read dip
 	goto loop
     clear_and_wait:
 	call clear
@@ -85,54 +85,52 @@ loop:
     return ; should never hit
     
 flash_in_unison:
-    BTFSS PORTB, 0
-    goto turn_on
-    goto turn_off
+    BTFSS PORTB, 0 ; check if lights are on
+    goto turn_on ; if on, turn off
+    goto turn_off; if off, turn on
     turn_off:
-	bcf PORTB, 0
+	bcf PORTB, 0 ; turn off lights
 	bcf PORTB, 1
 	bcf PORTB, 2
 	return
     turn_on:
-	bsf PORTB,0
+	bsf PORTB,0 ; turn on lights
 	bsf PORTB,1
 	bsf PORTB,2
 	return
     
-binary_count:
-    BTFSS PORTB, 0 ;skip if 1 is set
-    goto flip_1
-    BTFSS PORTB, 1 ; skip if 2 is set
-    goto flip_12
-    ;BTFSS PORTB, 2 ; skip if 3 is set
-    ;goto flip_123
-    goto flip_123; clears or counts
+reverse_flow:
+    BTFSC PORTB, 0 ; if light 1 is on
+    goto one_to_three ; turn it off and turn on 3
+    BTFSC PORTB, 1 ; if light 2 is on,
+    goto two_to_one ; turn it off and turn on 1
+    BTFSC PORTB, 2; if light 3 is on,
+    goto three_to_two; turn it off and turn 2 on
     
-    flip_123:
-    	BTFSS PORTB, 2
-	bsf PORTB, 2
-	bcf PORTB, 2
-    
-    flip_12:
-    	BTFSS PORTB, 1
-	bsf PORTB, 1
-	bcf PORTB, 1
-    
-    flip_1:
-	BTFSS PORTB, 0
-	bsf PORTB, 0
-	bcf PORTB, 0
-	
+    bsf PORTB, 0 ;if no lights are on, turn on light 1
     return
+    
+    two_to_one:
+	bcf PORTB, 1
+	bsf PORTB, 0
+	return
+    three_to_two:
+    	bcf PORTB, 2
+	bsf PORTB, 1
+	return
+    one_to_three:
+    	bcf PORTB, 0
+	bsf PORTB, 2
+	return
     
     
 flow:
-    BTFSC PORTB, 0
-    goto one_to_two;found in 1
-    BTFSC PORTB, 1
-    goto two_to_three ;found in 2
-    BTFSC PORTB, 2
-    goto three_to_one;found in 3
+    BTFSC PORTB, 0 ;if light one is on
+    goto one_to_two ; turn it off and turn on light 2
+    BTFSC PORTB, 1 ; if light 2 is on,
+    goto two_to_three ;turn if off and turn on 3
+    BTFSC PORTB, 2; if light 3 is on,
+    goto three_to_one; turn it off and turn on light 1
     
     bsf PORTB, 0 ;else
     return
@@ -154,19 +152,19 @@ flow:
 init:
     bsf STATUS, RP0
     bsf STATUS, RP1
-    clrf ANSEL
+    clrf ANSEL ;all digitial
     clrf ANSELH
     bsf STATUS, RP0
     bcf STATUS, RP1
     
-    clrf TRISD
-    comf TRISD
-    clrf TRISB
+    clrf TRISC ;set port C as input
+    comf TRISC 
+    clrf TRISB ; set port B as output
     
     bcf STATUS, RP0
     bcf STATUS, RP1
     
-    clrf PORTB
+    clrf PORTB; turn off the lights
     return
     
     end
