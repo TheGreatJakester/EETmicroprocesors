@@ -57,21 +57,21 @@ loop:
     goto clear_and_wait
     
     sub_1:
-	btfsc sub_flags, 0
+	btfss sub_flags, 0
 	call clear
 	bsf sub_flags, 0
 	call flash_in_unison
 	goto loop
 	
     sub_2:
-	btfsc sub_flags, 1
+	btfss sub_flags, 1
 	call clear
 	bsf sub_flags, 1
 	call binary_count
 	goto loop
     
     sub_3:
-	btfsc sub_flags, 2
+	btfss sub_flags, 2
 	call clear
 	bsf sub_flags, 2
 	call flow
@@ -87,10 +87,12 @@ loop:
 flash_in_unison:
     BTFSS PORTB, 0
     goto turn_on
-    bcf PORTB,0
-    bcf PORTB,1
-    bcf PORTB,2
-    return
+    goto turn_off
+    turn_off:
+	bcf PORTB, 0
+	bcf PORTB, 1
+	bcf PORTB, 2
+	return
     turn_on:
 	bsf PORTB,0
 	bsf PORTB,1
