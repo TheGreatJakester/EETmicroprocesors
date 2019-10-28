@@ -12,6 +12,7 @@ __CONFIG _CONFIG2, _BOR4V_BOR40V & _WRT_OFF
 
 X equ H'0020'	    ; declare variable X at location H'0020'
 Y equ H'0021'	    ; declare variable Y at location H'0021'
+sub_flags equ H'0022'
     
 main:
     
@@ -38,14 +39,49 @@ wait:
     goto loop2
     return ; finish the delay
     
+    
+clear:
+    clrf sub_flags
+    clrf PORTB
+    return
+    
+
 loop:
-    bsf PORTB, 0 ; turn on blue light
-    ;bcf PORTC, 0 ; turn off red light
-    call delay ; go wait
-    bcf PORTB, 0 ; turn off blue light
-    ;bsf PORTC, 0 ; turn on red light
-    call delay ; go wait
-    goto loop ; do it again
+    call delay
+    BTFSC PORTC, 4
+    goto sub_1
+    BTFSC PORTC, 5
+    goto sub_2
+    BTFSC PORTC, 6
+    goto sub_3
+    goto clear_and_wait
+    
+    sub_1:
+	btfsc sub_flags, 0
+	call clear
+	bsf sub_flags, 0
+	call flash_in_unison
+	goto loop
+	
+    sub_2:
+	btfsc sub_flags, 1
+	call clear
+	bsf sub_flags, 1
+	call binary_count
+	goto loop
+    
+    sub_3:
+	btfsc sub_flags, 2
+	call clear
+	bsf sub_flags, 2
+	call flow
+	goto loop
+    clear_and_wait:
+	call clear
+	goto loop
+    
+    
+    
     return ; should never hit
     
 flash_in_unison:
@@ -95,6 +131,9 @@ flow:
     goto two_to_three ;found in 2
     BTFSC PORTB, 2
     goto three_to_one;found in 3
+    
+    bsf PORTB, 0 ;else
+    return
     
     one_to_two:
 	bcf PORTB, 0
