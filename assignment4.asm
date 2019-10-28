@@ -48,6 +48,68 @@ loop:
     goto loop ; do it again
     return ; should never hit
     
+flash_in_unison:
+    BTFSS PORTB, 0
+    goto turn_on
+    bcf PORTB,0
+    bcf PORTB,1
+    bcf PORTB,2
+    return
+    turn_on:
+	bsf PORTB,0
+	bsf PORTB,1
+	bsf PORTB,2
+	return
+    
+binary_count:
+    BTFSS PORTB, 0 ;skip if 1 is set
+    goto flip_1
+    BTFSS PORTB, 1 ; skip if 2 is set
+    goto flip_12
+    ;BTFSS PORTB, 2 ; skip if 3 is set
+    ;goto flip_123
+    goto flip_123; clears or counts
+    
+    flip_123:
+    	BTFSS PORTB, 2
+	bsf PORTB, 2
+	bcf PORTB, 2
+    
+    flip_12:
+    	BTFSS PORTB, 1
+	bsf PORTB, 1
+	bcf PORTB, 1
+    
+    flip_1:
+	BTFSS PORTB, 0
+	bsf PORTB, 0
+	bcf PORTB, 0
+	
+    return
+    
+    
+flow:
+    BTFSC PORTB, 0
+    goto one_to_two;found in 1
+    BTFSC PORTB, 1
+    goto two_to_three ;found in 2
+    BTFSC PORTB, 2
+    goto three_to_one;found in 3
+    
+    one_to_two:
+	bcf PORTB, 0
+	bsf PORTB, 1
+	return
+    two_to_three:
+    	bcf PORTB, 1
+	bsf PORTB, 2
+	return
+    three_to_one:
+    	bcf PORTB, 2
+	bsf PORTB, 0
+	return
+    
+    
 init:
     bsf STATUS, RP0
     bsf STATUS, RP1
