@@ -38,6 +38,38 @@ init:
 main:
     goto set_lights
     
+    
+turn_on_0:
+    movlw b'00111111' ; Code for 0
+    movwf PORTD
+    comf PORTD
+    goto set_lights
+turn_on_1:
+    movlw b'00000110'
+    movwf PORTD
+    comf PORTD
+    goto set_lights
+turn_on_2:
+    movlw b'01011011'
+    movwf PORTD
+    comf PORTD
+    goto set_lights
+turn_on_3:
+    movlw b'01001111'
+    movwf PORTD
+    comf PORTD
+    goto set_lights
+turn_on_4:
+    movlw b'01100110'
+    movwf PORTD
+    comf PORTD
+    goto set_lights
+turn_on_5:
+    movlw b'01101101'
+    movwf PORTD
+    comf PORTD
+    goto set_lights
+    
 
 set_lights:
     bsf ADCON0, GO
@@ -47,34 +79,39 @@ set_lights:
     MOVF ADRESH, 0 ;place the resuts in W
     MOVWF reading
     
-    looking:
-	
+    movlw b'00110011' ; move 51 in binary to WREG
+    
+    subwf reading
+    btfss STATUS, C
+    goto turn_on_0
+    
+    subwf reading
+    btfss STATUS, C
+    goto turn_on_1
+    
+    
+    subwf reading
+    btfss STATUS, C
+    goto turn_on_2
+    
+    
+    subwf reading
+    btfss STATUS, C
+    goto turn_on_3
+    
+    subwf reading
+    btfss STATUS, C
+    goto turn_on_4
+    
+    
+    subwf reading
+    btfss STATUS, C
+    goto turn_on_5
+    
+    
     
     goto set_lights
     
     end ;should never hit
     
-    turn_on_0:
-	movlw b'00111111' ; Code for 0
-	movwf PORTD
-	goto set_lights
-    turn_on_1:
-	movlw b'00000000'
-	movwf PORTD
-	goto set_lights
-    turn_on_2:
-	movlw b'00000110'
-	movwf PORTD
-	goto set_lights
-    turn_on_3:
-	movlw b'01111001'
-	movwf PORTD
-	goto set_lights
-    turn_on_4:
-	movlw b'01110010'
-	movwf PORTD
-	goto set_lights
-    turn_on_5:
-	movlw b'01101101'
-	movwf PORTD
-	goto set_lights
+    
