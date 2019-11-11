@@ -149,6 +149,12 @@
         </mpasmsuite>
       </item>
       <item path="assignment4.asm" ex="true" overriding="false">
+        <MPASMWIN-AS>
+        </MPASMWIN-AS>
+        <MPASMWIN-LD>
+        </MPASMWIN-LD>
+        <mpasmsuite>
+        </mpasmsuite>
       </item>
       <mpasmsuite>
         <property key="absolute-mode" value="false"/>

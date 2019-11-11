@@ -10,6 +10,8 @@ __CONFIG _CONFIG2, _BOR4V_BOR40V & _WRT_OFF
     
 org 0x00	;declare program placement
     
+result equ h'0022'
+reading equ h'0023'
 
 init:
     bsf STATUS, RP0
@@ -42,11 +44,37 @@ set_lights:
     BTFSC ADCON0, GO
     goto $-1 ; Wait till GO is clear.
 
-    MOVF ADRESH, 0
-    ;movlw b'01010101'
-    movwf PORTD
+    MOVF ADRESH, 0 ;place the resuts in W
+    MOVWF reading
+    
+    looking:
+	
+    
     goto set_lights
     
     end ;should never hit
     
-    
+    turn_on_0:
+	movlw b'00111111' ; Code for 0
+	movwf PORTD
+	goto set_lights
+    turn_on_1:
+	movlw b'00000000'
+	movwf PORTD
+	goto set_lights
+    turn_on_2:
+	movlw b'00000110'
+	movwf PORTD
+	goto set_lights
+    turn_on_3:
+	movlw b'01111001'
+	movwf PORTD
+	goto set_lights
+    turn_on_4:
+	movlw b'01110010'
+	movwf PORTD
+	goto set_lights
+    turn_on_5:
+	movlw b'01101101'
+	movwf PORTD
+	goto set_lights
