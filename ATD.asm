@@ -29,7 +29,7 @@ init:
     bcf STATUS, RP0 ; select bank 0
 
     clrf ADCON0
-    movlw b'00100001'
+    movlw b'11100001'
     movwf ADCON0    ;set clock source,channel (ANS8), enable for  ATD
     
     
@@ -42,7 +42,8 @@ set_lights:
     BTFSC ADCON0, GO
     goto $-1 ; Wait till GO is clear.
 
-    movlw ADRESH
+    MOVF ADRESH, 0
+    ;movlw b'01010101'
     movwf PORTD
     goto set_lights
     

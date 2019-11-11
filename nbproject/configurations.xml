@@ -16,6 +16,7 @@
       <itemPath>assignment2_.asm</itemPath>
       <itemPath>assignment3.asm</itemPath>
       <itemPath>assignment4.asm</itemPath>
+      <itemPath>ATD.asm</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -140,6 +141,14 @@
         </mpasmsuite>
       </item>
       <item path="assignment3.asm" ex="true" overriding="false">
+        <MPASMWIN-AS>
+        </MPASMWIN-AS>
+        <MPASMWIN-LD>
+        </MPASMWIN-LD>
+        <mpasmsuite>
+        </mpasmsuite>
+      </item>
+      <item path="assignment4.asm" ex="true" overriding="false">
       </item>
       <mpasmsuite>
         <property key="absolute-mode" value="false"/>
