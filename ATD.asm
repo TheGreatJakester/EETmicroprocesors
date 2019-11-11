@@ -11,24 +11,6 @@ __CONFIG _CONFIG2, _BOR4V_BOR40V & _WRT_OFF
 org 0x00	;declare program placement
     
 
-    
-main:
-    call init
-    goto set_lights
-    
-
-set_lights:
-    bsf ADCON0, GO
-    BTFSC ADCON0, GO
-    goto $-1 ; Wait till GO is clear.
-
-    movlw ADRESH
-    movwf PORTD
-    goto set_lights
-    
-    end ;should never hit
-    
-    
 init:
     bsf STATUS, RP0
     bsf STATUS, RP1
@@ -44,11 +26,26 @@ init:
     clrf TRISD ; set all of port D as output
     clrf ADCON1; set left aligned, and vss and vdd for reference voltages
 
-    bcf STATUS, RPO ; select bank 0
+    bcf STATUS, RP0 ; select bank 0
 
     clrf ADCON0
     movlw b'00100001'
     movwf ADCON0    ;set clock source,channel (ANS8), enable for  ATD
-    return
+    
+    
+main:
+    goto set_lights
+    
+
+set_lights:
+    bsf ADCON0, GO
+    BTFSC ADCON0, GO
+    goto $-1 ; Wait till GO is clear.
+
+    movlw ADRESH
+    movwf PORTD
+    goto set_lights
+    
+    end ;should never hit
     
     
