@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=ATD.asm
+SOURCEFILES_QUOTED_IF_SPACED=internalTimer.asm
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/ATD.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/ATD.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/internalTimer.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/internalTimer.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/ATD.o
+OBJECTFILES=${OBJECTDIR}/internalTimer.o
 
 # Source Files
-SOURCEFILES=ATD.asm
+SOURCEFILES=internalTimer.asm
 
 
 
@@ -95,22 +95,22 @@ MP_LINKER_DEBUG_OPTION=-r=ROM@0x1F00:0x1FFE -r=RAM@SHARE:0x70:0x70 -r=RAM@SHARE:
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: assemble
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/ATD.o: ATD.asm  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/internalTimer.o: internalTimer.asm  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/ATD.o.d 
-	@${RM} ${OBJECTDIR}/ATD.o 
-	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/ATD.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -d__DEBUG -d__MPLAB_DEBUGGER_PK3=1 -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/ATD.lst\" -e\"${OBJECTDIR}/ATD.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/ATD.o\" \"ATD.asm\" 
-	@${DEP_GEN} -d "${OBJECTDIR}/ATD.o"
-	@${FIXDEPS} "${OBJECTDIR}/ATD.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
+	@${RM} ${OBJECTDIR}/internalTimer.o.d 
+	@${RM} ${OBJECTDIR}/internalTimer.o 
+	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/internalTimer.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -d__DEBUG -d__MPLAB_DEBUGGER_PK3=1 -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/internalTimer.lst\" -e\"${OBJECTDIR}/internalTimer.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/internalTimer.o\" \"internalTimer.asm\" 
+	@${DEP_GEN} -d "${OBJECTDIR}/internalTimer.o"
+	@${FIXDEPS} "${OBJECTDIR}/internalTimer.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
 	
 else
-${OBJECTDIR}/ATD.o: ATD.asm  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/internalTimer.o: internalTimer.asm  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/ATD.o.d 
-	@${RM} ${OBJECTDIR}/ATD.o 
-	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/ATD.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/ATD.lst\" -e\"${OBJECTDIR}/ATD.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/ATD.o\" \"ATD.asm\" 
-	@${DEP_GEN} -d "${OBJECTDIR}/ATD.o"
-	@${FIXDEPS} "${OBJECTDIR}/ATD.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
+	@${RM} ${OBJECTDIR}/internalTimer.o.d 
+	@${RM} ${OBJECTDIR}/internalTimer.o 
+	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/internalTimer.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/internalTimer.lst\" -e\"${OBJECTDIR}/internalTimer.err\" $(ASM_OPTIONS)    -o\"${OBJECTDIR}/internalTimer.o\" \"internalTimer.asm\" 
+	@${DEP_GEN} -d "${OBJECTDIR}/internalTimer.o"
+	@${FIXDEPS} "${OBJECTDIR}/internalTimer.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
 	
 endif
 

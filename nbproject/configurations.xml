@@ -17,6 +17,7 @@
       <itemPath>assignment3.asm</itemPath>
       <itemPath>assignment4.asm</itemPath>
       <itemPath>ATD.asm</itemPath>
+      <itemPath>internalTimer.asm</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -67,6 +68,8 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
+      <item path="ATD.asm" ex="true" overriding="false">
+      </item>
       <item path="Assignment1.asm" ex="true" overriding="false">
         <MPASMWIN-AS>
         </MPASMWIN-AS>
@@ -149,6 +152,12 @@
         </mpasmsuite>
       </item>
       <item path="assignment4.asm" ex="true" overriding="false">
+        <MPASMWIN-AS>
+        </MPASMWIN-AS>
+        <MPASMWIN-LD>
+        </MPASMWIN-LD>
+        <mpasmsuite>
+        </mpasmsuite>
       </item>
       <mpasmsuite>
         <property key="absolute-mode" value="false"/>
