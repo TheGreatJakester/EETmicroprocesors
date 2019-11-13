@@ -14,7 +14,7 @@ result equ h'0022'
 reading equ h'0023'
 
 init:
-    bsf STATUS, RP0
+    bsf STATUS, RP0 ; select bank 3
     bsf STATUS, RP1
 
     CLRF ANSEL	 ; set all to digital
@@ -38,75 +38,88 @@ init:
 main:
     goto set_lights
     
+    ; Mapping for PortD
+    ; start at 0 from the top, go clock wise, the last bit (6) is the middle
+    ;
+    ;	 0
+    ;	 --
+    ;  5|  |1
+    ;	|  |
+    ;   6--6
+    ;  4|  |2
+    ;   |  |
+    ;	 --
+    ;     3
+    
     
 turn_on_0:
-    movlw b'00111111' ; Code for 0
+    movlw b'00111111' ;012345
     movwf PORTD
-    comf PORTD
+    comf PORTD ; place the pattern for 0 in PORT D
     goto set_lights
 turn_on_1:
-    movlw b'00000110'
+    movlw b'00000110';12
     movwf PORTD
-    comf PORTD
+    comf PORTD ; place the pattern for 1 in PORT D
     goto set_lights
 turn_on_2:
-    movlw b'01011011'
+    movlw b'01011011';01346
     movwf PORTD
-    comf PORTD
+    comf PORTD ; place the pattern for 2 in PORT D
     goto set_lights
 turn_on_3:
-    movlw b'01001111'
+    movlw b'01001111';01236
     movwf PORTD
-    comf PORTD
+    comf PORTD ; place the pattern for 3 in PORT D
     goto set_lights
 turn_on_4:
-    movlw b'01100110'
+    movlw b'01100110' ;1256
     movwf PORTD
-    comf PORTD
+    comf PORTD ; place the pattern for 4 in PORT D
     goto set_lights
 turn_on_5:
-    movlw b'01101101'
+    movlw b'01101101' ;02356
     movwf PORTD
-    comf PORTD
+    comf PORTD ; place the pattern for 5 in PORT D
     goto set_lights
     
 
 set_lights:
-    bsf ADCON0, GO
+    bsf ADCON0, GO ;Start analog conversion
     BTFSC ADCON0, GO
-    goto $-1 ; Wait till GO is clear.
+    goto $-1 ; Wait till GO is clear. till analog conversion is over
 
-    MOVF ADRESH, 0 ;place the resuts in W
-    MOVWF reading
+    MOVF ADRESH, 0  ;
+    MOVWF reading   ; place voltage value in reading
     
-    movlw b'00110011' ; move 51 in binary to WREG
+    movlw b'00110011' ; move 51 in binary to WREG (1/5 th of 255)
     
-    subwf reading
+    subwf reading ;subtract 1v from reading
     btfss STATUS, C
-    goto turn_on_0
+    goto turn_on_0 ; if less than readding is less than 0, turn on 0 and reset
     
-    subwf reading
+    subwf reading ;subtract 1v from reading
     btfss STATUS, C
-    goto turn_on_1
+    goto turn_on_1 ; if less than readding is less than 0, turn on 1 and reset
     
     
-    subwf reading
+    subwf reading ;subtract 1v from reading
     btfss STATUS, C
-    goto turn_on_2
+    goto turn_on_2 ; if less than readding is less than 0, turn on 2 and reset
     
     
-    subwf reading
+    subwf reading ;subtract 1v from reading
     btfss STATUS, C
-    goto turn_on_3
-    
-    subwf reading
+    goto turn_on_3 ; if less than readding is less than 0, turn on 3 and reset
+     
+    subwf reading ;subtract 1v from reading
     btfss STATUS, C
-    goto turn_on_4
+    goto turn_on_4 ; if less than readding is less than 0, turn on 4 and reset
     
     
-    subwf reading
+    subwf reading ;subtract 1v from reading
     btfss STATUS, C
-    goto turn_on_5
+    goto turn_on_5 ; if less than readding is less than 0, turn on 5 and reset
     
     
     
